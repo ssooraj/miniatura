@@ -20,9 +20,47 @@ Or install it yourself as:
 
     $ gem install miniatura
 
-## Usage
+# Usage
 
-TODO: Write usage instructions here
+In the Rails app/uploaders/filename.rb, call the generate_thumb function with options.
+The options are passed as hash to this function, can be also empty.
+
+The options are:
+
+* size - The height x width of the thumbnail to be generated, by default will take the same size of that of the video, type is string.
+* file_extension - Format of the file to be saved, by default the format at will be "jpeg", type is string.
+* quality - Quality of the file to be saved, type is integer.
+* time_frame - The time in the video at which the thumbnail must be generated, type is string.
+
+
+## Examples
+
+Here's a working example:
+
+In your Rails app/uploaders/video_uploader.rb:
+
+```ruby
+class VideoUploader < CarrierWave::Uploader::Base
+  include CarrierWave::RMagick
+  include Miniatura
+  storage :file
+
+  version :thumb do
+     process generate_thumb:[{:size => "200x200",:quality => 5, :time_frame => "00:0:04", :file_extension => "jpeg"}]
+    def full_filename for_file
+      png_name for_file, version_name, "jpeg"
+    end
+  end
+
+  def png_name for_file, version_name, format
+    %Q{#{version_name}_#{for_file.chomp(File.extname(for_file))}.#{format}}
+  end
+
+  def store_dir
+    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+end
+```
 
 ## Development
 
