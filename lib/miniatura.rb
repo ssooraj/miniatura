@@ -12,6 +12,8 @@ module Miniatura
     video = MiniExiftool.new(current_path)
     orientation = video.rotation
     case orientation
+    when 0
+      options[:rotate] = 0
     when 90
       options[:rotate] = 90
     when 180
@@ -19,8 +21,6 @@ module Miniatura
     when 270
       options[:rotate] = 270
     end
-    logger = Miniatura::Logger.new(options).logger
-    logger.info("Orientation:  #{orientation}")
     video_width, video_height = video.imagewidth, video.imageheight
     case orientation
     when 0,180
