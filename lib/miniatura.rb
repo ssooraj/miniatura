@@ -3,28 +3,12 @@ require "miniatura/version"
 require "miniatura/options"
 require "miniatura/logger"
 require "miniatura/generate_command"
-require 'mini_exiftool'
 
 module Miniatura
   def generate_thumb options = {}
     options[:file_extension] ||= 'jpeg'
     options[:logger] = Rails.logger
     options[:rotate] = 0
-    # options[:rotate]
-    # p video = MiniExiftool.new(current_path)
-    # p "before"
-    # p options
-    # p orientation = video.rotation
-    # case orientation
-    # when 0
-    #   options[:rotate] = 0
-    # when 90
-    #   options[:rotate] = 0
-    # when 180
-    #   options[:rotate] = 180
-    # end
-    # p "after"
-    p options
     tmp_path = File.join( File.dirname(current_path), "tmpfile.#{options[:file_extension]}")
     thumbnail = GenerateCommand.new(current_path, tmp_path)
     cmd = thumbnail.generate_command(options)
