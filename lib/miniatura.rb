@@ -8,10 +8,19 @@ module Miniatura
   def generate_thumb options = {}
     options[:file_extension] ||= 'jpeg'
     options[:logger] = Rails.logger
-    options[:rotate] = 0
     size = options[:size]
     video = MiniExiftool.new(current_path)
     orientation = video.rotation
+    case orientation
+    when 90
+      options[:rotate] = 90
+    when 180
+      options[:rotate] = 180
+    when 270
+      options[:rotate] = 270
+    end
+    logger = Miniatura::Logger.new(options).logger
+    logger.info("Orientation:  #{orientation}")
     video_width, video_height = video.imagewidth, video.imageheight
     case orientation
     when 0,180
