@@ -9,6 +9,21 @@ module Miniatura
     options[:file_extension] ||= 'jpeg'
     options[:logger] = Rails.logger
     options[:rotate] = 0
+    size = options[:size]
+    video = MiniExiftool.new(current_path)
+    orientation = video.rotation
+    video_width, video_height = video.imagewidth, video.imageheight
+    case orientation
+    when 0,180
+      image_width = size
+      ratio = size.to_f/video_width
+      image_height = video_height * ratio
+    else
+      image_width = size
+      ratio = size.to_f/video_height
+      image_height = video_width * ratio
+    end
+    options[:size] = "#{image_width.to_i}" + "x" + "#{image_height.to_i}"
     tmp_path = File.join( File.dirname(current_path), "tmpfile.#{options[:file_extension]}")
     thumbnail = GenerateCommand.new(current_path, tmp_path)
     cmd = thumbnail.generate_command(options)

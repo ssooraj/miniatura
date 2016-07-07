@@ -10,11 +10,11 @@ gem 'miniatura'
 
 And then execute:
 
-    $ bundle
+$ bundle
 
 Or install it yourself as:
 
-    $ gem install miniatura
+$ gem install miniatura
 
 # Usage
 
@@ -42,7 +42,7 @@ class VideoUploader < CarrierWave::Uploader::Base
   storage :file
 
   version :thumb do
-     process generate_thumb:[{:size => "200x200",:quality => 5, :time_frame => "00:0:04", :file_extension => "jpeg"}]
+    process generate_thumb:[{size: 200,quality: 5, file_extension: "jpeg"}]
     def full_filename for_file
       png_name for_file, version_name, "jpeg"
     end

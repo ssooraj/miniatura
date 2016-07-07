@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "carrierwave-video", "~> 0.5.6"
+  spec.add_development_dependency "mini_exiftool", "~> 2.7", ">= 2.7.6"
 end
