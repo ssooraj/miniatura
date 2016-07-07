@@ -10,11 +10,15 @@ gem 'miniatura'
 
 And then execute:
 
+```ruby
 $ bundle
+```
 
 Or install it yourself as:
 
+```ruby
 $ gem install miniatura
+```
 
 # Usage
 
