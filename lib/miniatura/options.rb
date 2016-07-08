@@ -25,14 +25,14 @@ module Miniatura
       when 'jpeg' then %Q(-c mjpeg)
       when  'png' then %Q(-c png)
       else
-        " "
+        ""
       end
     end
 
     def rotate value
       case value
       when 90  then %Q(-vf transpose=1)
-      when 180 then %Q(-vf vflip )
+      when 180 then %Q(-vf hflip )
       when 270 then %Q(-vf transpose=2)
       else
         ""
