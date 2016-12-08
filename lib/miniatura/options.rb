@@ -1,5 +1,6 @@
 module Miniatura
   class Options
+    #Options class to add various options to the ffmpeg command genrated.
 
     CLI_KEY = {
       size: '-s',
