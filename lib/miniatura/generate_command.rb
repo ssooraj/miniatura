@@ -9,7 +9,7 @@ module Miniatura
     end
     
     # Generates ffmpeg command to create the thumbnail.
-    def generate_command options = {}
+    def generate_command(options = {})
       options = Miniatura::Options.new(options)
       %Q(ffmpeg #{options.to_options} #{output_path} -i #{input_path})
     end
