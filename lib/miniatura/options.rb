@@ -14,18 +14,16 @@ module Miniatura
     end
 
     def to_options
-      result = @options.map do |k, v|
-        send(k.to_s, v)
-      end
+      result = @options.map { |k, v| send(k.to_s, v) }
       result << '-vframes 1'
       result.join(' ')
     end
 
     def file_extension(value)
       case value
-        when 'jpeg' then
+        when 'jpeg'
           '-c mjpeg'
-        when 'png' then
+        when 'png'
           '-c png'
         else
           ''
@@ -34,11 +32,11 @@ module Miniatura
 
     def rotate(value)
       case value
-        when 90 then
+        when 90
           '-vf transpose=1'
-        when 180 then
+        when 180
           '-vf hflip '
-        when 270 then
+        when 270
           '-vf transpose=2'
         else
           ''

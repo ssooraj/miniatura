@@ -1,14 +1,18 @@
 module Miniatura
-  class Logger
-  	attr_reader :logger
+	class Logger
+		attr_reader :logger
 
-  	def initialize options
-  	  if options.has_key? :logger
-  	  	@logger = options[:logger]
-  	  else
-  	  	@logger = Logger.new(STDOUT)
-  	  	@logger.level = Logger::INFO
-  	  end
-  	end
-  end
+		def initialize(options)
+			(options.has_key? :logger) ? user_defined_logger : default_logger
+		end
+
+		def user_defined_logger
+			@logger = options[:logger]
+		end
+
+		def default_logger
+			@logger = Logger.new(STDOUT)
+			@logger.level = Logger::INFO
+		end
+	end
 end
