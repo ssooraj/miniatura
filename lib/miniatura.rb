@@ -9,14 +9,13 @@ module Miniatura
     @exit_code, @error = nil
     raise Errno::ENOENT unless File.exist?(current_path)
     options[:file_extension] ||= 'jpeg'
-    options[:logger] = Rails.logger
     options[:rotate] = 0
     options[:size] = determine_thumb_dimension_ratio_from_uploaded_video(options[:size])
     tmp_path = generate_temp_file(options[:file_extension])
     cmd = generate_command_for_thumbnail(options, tmp_path)
-    show_logs(options, cmd)
+    show_logs(cmd)
     execute_command(cmd)
-    handle_exit_code(@exit_code, @error, logger)
+    handle_exit_code(@exit_code, @error)
     File.rename tmp_path, current_path
   end
 
@@ -62,8 +61,8 @@ module Miniatura
     return thumbnail.generate_command(options)
   end
 
-  def show_logs(options, command)
-    logger = Miniatura::Logger.new(options).logger
+  def show_logs(command)
+    logger = Miniatura::Logger.new.logger
     logger.info("Running command: #{command}")
   end
 
@@ -74,12 +73,12 @@ module Miniatura
     end
   end
 
-  def handle_exit_code(exit_code, error, logger)
+  def handle_exit_code(exit_code, error)
+    logger = Miniatura::Logger.new.logger
     if exit_code == 0
       logger.info 'Success!'
     else
       logger.error "Failure due to following error:  #{error}"
     end
-    exit_code
   end
 end
