@@ -3,11 +3,11 @@ module Miniatura
 		attr_reader :logger
 
 		def initialize(options)
-			(options.has_key? :logger) ? user_defined_logger : default_logger
+			(options.has_key? :logger) ? user_defined_logger(options[:logger]) : default_logger
 		end
 
-		def user_defined_logger
-			@logger = options[:logger]
+		def user_defined_logger(log_option)
+			@logger = log_option
 		end
 
 		def default_logger
