@@ -18,9 +18,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 2.0.2'
-  spec.add_development_dependency 'rake', '~> 12.3.2'
-  spec.add_development_dependency 'rspec', '~> 3.8.0'
+  spec.add_development_dependency 'bundler', '~> 2.1.4'
+  spec.add_development_dependency 'rake', '~> 13.0.1'
+  spec.add_development_dependency 'rspec', '~> 3.9.0'
   spec.add_development_dependency 'carrierwave-video', '~> 0.6.0'
-  spec.add_development_dependency 'mini_exiftool', '~> 2.9.0'
+  spec.add_development_dependency 'mini_exiftool', '~> 2.10.0'
 end
